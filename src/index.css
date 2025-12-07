@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+    name: "light";
+    --color-primary: #FBFBFB;
+    --color-secondary: linear-gradient(to right, #ee8979, #ff6a60);
+    --color-accent: #E8F9FF;
+    --color-base-100: linear-gradient(to right, #ee0979, #ff6a00);
+}

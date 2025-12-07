@@ -1,0 +1,44 @@
+/* HTML: <div class="stamp"></div> */
+.stamp {
+    --r: 20px;
+    /* control the radius */
+
+    height: 250px;
+    aspect-ratio: 1.5;
+    padding: var(--r);
+    /* background: ; */
+    mask:
+        radial-gradient(50% 50%, #0000 66%, #000 67%) round var(--r) var(--r)/calc(2*var(--r)) calc(2*var(--r)),
+        conic-gradient(#000 0 0) content-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+.custom-shape-divider-bottom-1765012738 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1765012738 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 216px;
+}
+
+.custom-shape-divider-bottom-1765012738 .shape-fill {
+    fill: #FFFFFF;
+}

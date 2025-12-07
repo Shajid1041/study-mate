@@ -1,0 +1,130 @@
+import React, { use, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
+
+const Login = () => {
+    const location = useLocation()
+    const navigate = useNavigate(0)
+    const [error, setError] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [loginEmail, setLoginEmail] = useState('');
+    const handleHideShow = (event) => {
+        event.preventDefault()
+        setShowPassword(!showPassword)
+    }
+
+    const { signIn, forgotPassword, googleAccess } = use(AuthContext)
+
+    const emailRef = useRef();
+    const handleGoogle = (event) => {
+        event.preventDefault();
+        googleAccess()
+            .then(() => {
+                // sweetalert2
+                navigate(location.state || '/')
+            })
+            .catch(error => setError(error.message))
+    }
+
+    const handleSigninSubmit = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        signIn(email, password)
+            .then(() => {
+                event.target.reset();
+                // sweetalert2
+                navigate(location.state || '/')
+            })
+            .catch(error => setError(error.message))
+    }
+    const handleClickForgot = () => {
+        document.getElementById('my_modal_3').showModal()
+    }
+    const handlePasswordReset = () => {
+        const email = emailRef.current.value
+        // sweetalert2
+        forgotPassword(email)
+            .then(() => {
+                window.open("https://mail.google.com/mail/u/0/#inbox", "_blank");
+            }).catch(error => setError(error.message))
+    }
+    return (
+        <div>
+            <div className="flex justify-center items-center min-h-screen bg-base-200 p-6">
+                <div className="card w-full max-w-md shadow-xl bg-base-100 p-6">
+                    <h2 className="text-3xl font-bold text-center mb-4">Sign In</h2>
+
+                    {/* {error && <div className="alert alert-error mb-3">{error}</div>}
+          {success && <div className="alert alert-success mb-3">{success}</div>} */}
+
+                    <form
+                        onSubmit={handleSigninSubmit}
+                        className="space-y-4">
+                        <input type="email"
+                            name='email'
+                            onChange={(e) => setLoginEmail(e.target.value)}
+                            className="input input-bordered w-full"
+                            placeholder="Email" />
+
+                        <div className='relative'>
+                            <input
+                                type={showPassword ? "text" : "password"} name='password'
+                                className="input input-bordered w-full"
+                                placeholder="Password" />
+                            <button onClick={handleHideShow} className='btn btn-xs absolute top-2  right-2 md:right-2'>{showPassword ? "Hide" : "Show"}</button>
+                        </div><div><a onClick={handleClickForgot} className="link link-hover">Forgot password?</a></div>
+                        <p className='text-red-600'>{error}</p>
+
+                        <button className="btn btn-primary w-full" type="submit">
+                            Sign In
+                        </button>
+                    </form>
+
+                    <div className="divider">OR</div>
+
+                    {/* Google Sign In Button */}
+                    <button
+                        onClick={handleGoogle}
+                        className="btn btn-outline btn-secondary w-full"
+                    >
+                        Continue with Google
+                    </button>
+                </div>
+            </div>
+            <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+
+                    <button
+                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                        onClick={() => document.getElementById("my_modal_3").close()}
+                    >
+                        ✕
+                    </button>
+
+                    <div>
+                        <h2 className="text-lg font-bold">Reset your password</h2>
+
+                        <input
+                            ref={emailRef}
+                            defaultValue={loginEmail}
+                            type="email"
+                            placeholder="Enter your email"
+                            className="input input-bordered w-full mt-2"
+                        />
+
+                        <button
+                            className="btn btn-neutral w-full mt-3"
+                            onClick={handlePasswordReset}
+                        >
+                            Reset Password
+                        </button>
+                    </div>
+
+                </div>
+            </dialog>
+        </div>
+    );
+};
+
+export default Login;
