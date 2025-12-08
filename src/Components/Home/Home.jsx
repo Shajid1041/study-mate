@@ -4,6 +4,7 @@ import './Home.css'
 import TopRatedPartner from '../TopRatedPartner/TopRatedPartner';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import Review from '../Review/Review';
+import FindPartners from '../../Pages/FindPartners';
 
 const Home = () => {
     return (
@@ -32,6 +33,8 @@ const Home = () => {
                 <Review></Review>
             </div>
             
+
+            <FindPartners></FindPartners>
 
         </div>
     );

@@ -19,40 +19,125 @@ const Register = () => {
         setShowPassword(!showPassword)
     }
 
-    const handleGoogle = (event) => {
-        event.preventDefault();
-        googleAccess()
-            .then(() => {
-                navigate(location.state || '/')
-                // sweetalert2
-            })
-            .catch(error => setError(error.message))
-    }
+    // const handleGoogle = (event) => {
+    //     event.preventDefault();
+    //     googleAccess()
+    //         .then(() => {
+    //             navigate(location.state || '/')
+    //             // sweetalert2
+    //         })
+    //         .catch(error => setError(error.message))
+    // }
+
+    // const handleRegisterSubmit = (event) => {
+    //     event.preventDefault();
+    //     const email = event.target.email.value;
+    //     const password = event.target.password.value;
+    //     const name = event.target.name.value;
+    //     const photo = event.target.photoURL.value;
+    //     const check = pattern.test(password)
+        
+    //     if (!check) {
+    //         return setError('week password! please give an strong password')
+
+    //     }
+    //     setError('')
+
+    //     createUser(email, password)
+    //         .then(() => {
+    //             // sweetalert2
+    //             navigate(location.state || '/')
+    //             setProfileData(name, photo).then(() =>
+    //                 setSuccess(true)
+    //             ).catch(error => setError(error.message))
+    //             event.target.reset();
+    //         })
+    //         .catch(error => setError(error.message))
+    // }
+
     const handleRegisterSubmit = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
         const name = event.target.name.value;
         const photo = event.target.photoURL.value;
-        const check = pattern.test(password)
-        
-        if (!check) {
-            return setError('week password! please give an strong password')
+        const check = pattern.test(password);
 
+        if (!check) {
+            return setError('Weak password! Please provide a strong password.');
         }
-        setError('')
+
+        setError('');
 
         createUser(email, password)
             .then(() => {
-                // sweetalert2
-                navigate(location.state || '/')
-                setProfileData(name, photo).then(() =>
-                    setSuccess(true)
-                ).catch(error => setError(error.message))
+                // Update profile with name and photo
+                return setProfileData(name, photo);
+            })
+            .then(() => {
+                // Prepare user data for backend
+                const newUser = {
+                    name: name,
+                    email: email,
+                    photoUrl: photo || '/default-avatar.png'
+                };
+
+                // Send to your server
+                return fetch('http://localhost:3000/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                });
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('User saved in MongoDB:', data);
+                setSuccess(true);
+                navigate(location.state || '/');
                 event.target.reset();
             })
-            .catch(error => setError(error.message))
-    }
+            .catch(error => {
+                console.error('Registration error:', error);
+                setError(error.message || 'Failed to create account.');
+            });
+    };
+
+    const handleGoogle = (event) => {
+        event.preventDefault();
+        setError('');
+
+        googleAccess()
+            .then(result => {
+                // Extract user info from Firebase result
+                const user = result.user;
+                const newUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoUrl: user.photoURL || '/default-google-avatar.png'
+                };
+
+                // Send to your backend
+                return fetch('http://localhost:3000/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                });
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Google user saved in MongoDB:', data);
+                navigate(location.state || '/');
+                // Optional: Swal.fire('Success!', 'Signed in with Google!', 'success');
+            })
+            .catch(error => {
+                console.error('Google sign-in error:', error);
+                setError(error.message || 'Failed to sign in with Google.');
+            });
+    };
 
 
 

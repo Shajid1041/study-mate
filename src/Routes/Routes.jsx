@@ -3,6 +3,9 @@ import Root from "../Layout/Root";
 import Home from "../Components/Home/Home";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
+import CreatePartnerProfile from "../Pages/createPartnerProfile";
+import FindPartners from "../Pages/FindPartners";
+import PartnerDetails from "../Components/PartnerDetails/PartnerDetails";
 
 
 
@@ -22,6 +25,19 @@ export const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: 'find-partners',
+                element: <FindPartners></FindPartners>
+            },
+            {
+                path: '/find-partners/:id',
+                loader: ({ params }) => fetch(`http://localhost:3000/partners/${params.id}`),
+                element: <PartnerDetails></PartnerDetails>
+            },
+            {
+                path: '/create-partner-profile',
+                element: <CreatePartnerProfile></CreatePartnerProfile>
             }
         ]
     }
