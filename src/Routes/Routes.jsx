@@ -6,6 +6,8 @@ import Register from "../Components/Register/Register";
 import CreatePartnerProfile from "../Pages/createPartnerProfile";
 import FindPartners from "../Pages/FindPartners";
 import PartnerDetails from "../Components/PartnerDetails/PartnerDetails";
+import MyConnection from "../Pages/MyConnection";
+import Profile from "../Components/Profile/Profile";
 
 
 
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
                 element: <Register></Register>
             },
             {
+                path: '/profile',
+                element: <Profile></Profile>
+            },
+            {
                 path: 'find-partners',
                 element: <FindPartners></FindPartners>
             },
@@ -38,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: '/create-partner-profile',
                 element: <CreatePartnerProfile></CreatePartnerProfile>
+            },
+            {
+                path: 'my-connection',
+                element: <MyConnection></MyConnection>
             }
         ]
     }

@@ -1,10 +1,48 @@
-import React, {  } from "react";
+import React, { use, useState } from "react";
 import { useLoaderData } from "react-router";
+import Swal from 'sweetalert2';
+import { AuthContext } from "../../Context/AuthContext";
 
 const PartnerDetails = () => {
     const partner = useLoaderData();
+    const {user} = use(AuthContext)
+    const email = user.email
+    const [connections, setConnection] = useState([])
+    const sendRequest = () => {
+        const newConnection = {
+            email : email,
+            partner : partner._id
 
+        }
+        fetch('http://localhost:3000/connection', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newConnection)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log('after placing Bid : ' ,data)
+                if (data.insertedId) {
+                    
+                    
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "Your bid has been placed",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    newConnection._id = data.insertedId
+                    const newConnection = [...connections, newConnection]
+                    setConnection(newConnection)
+                }
+            })
 
+        
+        
+    }
 
 
     // -------------------------------------------
@@ -54,7 +92,7 @@ const PartnerDetails = () => {
 
                     {/* Send Request Button */}
                     <button
-                        
+                        onClick={sendRequest}
                         className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition"
                     >
                         Send Partner Request

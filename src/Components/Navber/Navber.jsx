@@ -19,6 +19,9 @@ const Navber = () => {
         <li>
             <NavLink to="/create-partner-profile">Create Partner Profile</NavLink>
         </li>
+        <li>
+            <NavLink to="/my-connection">My Connection</NavLink>
+        </li>
     </>
 
     return (
@@ -56,9 +59,9 @@ const Navber = () => {
                         tabIndex="-1"
                         className="menu menu-lg dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32 p-2 shadow text-white">
                         <li>
-                            <a className="justify-between">
+                            <Link to={'/profile'} className="justify-between">
                                 Profile
-                            </a>
+                            </Link>
                         </li>
                                 <li><a onClick={handleSignOut}>Logout</a></li>
                     </ul>
