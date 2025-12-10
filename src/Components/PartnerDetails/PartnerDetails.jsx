@@ -9,6 +9,7 @@ const PartnerDetails = () => {
     const email = user.email
     const [connections, setConnection] = useState([])
     const sendRequest = () => {
+        console.log(partner)
         const newConnection = {
             email : email,
             partner : partner._id

@@ -2,8 +2,15 @@
 @plugin "daisyui";
 @plugin "daisyui/theme" {
     name: "light";
-    --color-primary: #FBFBFB;
-    --color-secondary: linear-gradient(to right, #ee8979, #ff6a60);
+    --color-primary: #CCCCFF;
+    --color-secondary: #7070FF;
     --color-accent: #E8F9FF;
-    --color-base-100: linear-gradient(to right, #ee0979, #ff6a00);
+    --color-base-100: white;
+}
+
+@layer components {
+    select option:checked {
+        background-color: var(--color-secondary);
+        color: white;
+    }
 }

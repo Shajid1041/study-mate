@@ -7,7 +7,7 @@ const Navber = () => {
     const handleSignOut = () => {
         signOutUser()
     }
-
+    console.log(user)
 
     const links = <>
         <li>
@@ -25,7 +25,7 @@ const Navber = () => {
     </>
 
     return (
-        <div className="navbar bg-transparent z-999 ">
+        <div className="navbar bg-secondary z-999 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -33,7 +33,7 @@ const Navber = () => {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="text-white menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className=" menu menu-lg dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow bg-primary">
                         {links}
                     </ul>
                 </div>
@@ -52,12 +52,12 @@ const Navber = () => {
                         <div className="w-10 rounded-full">
                             <img
                                 alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        src={user.photoURL} />
                         </div>
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-lg dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32 p-2 shadow text-white">
+                        className="menu menu-lg dropdown-content rounded-box z-1 mt-3 w-32 p-2 shadow bg-primary">
                         <li>
                             <Link to={'/profile'} className="justify-between">
                                 Profile

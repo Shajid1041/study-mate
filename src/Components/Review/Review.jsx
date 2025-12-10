@@ -1,102 +1,108 @@
-import React from 'react';
-import { FaQuoteLeft, FaStar } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-/**
- * A component to display user testimonials and reviews for the StudyMate platform,
- * styled to match the How It Works component's color palette.
- */
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// import required modules
+import { Autoplay, Pagination } from 'swiper/modules';
+
+const reviewsData = [
+    [
+        "Fatema Akter",
+        "StudyMate connected me with a partner who helped me master MongoDB and Express. The focused collaboration shaved weeks off my learning curve. Highly recommend !"
+    ],
+    [
+        "Rajib Hassan",
+        "I found a great peer for practicing complex Python algorithms. The easy-to-use search and profile details made finding the right match quick and effortless."
+    ],
+    [
+        "Sadia Rahman",
+        "The 'Offline' mode filter was perfect! I found a study buddy nearby for joint revision sessions. It made studying for final exams much more engaging."
+    ]
+];
+
 const Review = () => {
-    // Demo data for testimonials
-    const reviews = [
-        {
-            id: 1,
-            name: "Fatema Akter",
-            subject: "MERN Stack Developer",
-            review: "StudyMate connected me with a partner who helped me master MongoDB and Express. The focused collaboration shaved weeks off my learning curve. Highly recommend for serious learners!",
-            rating: 5,
-            photo: "https://i.ibb.co/fatema-example.jpg" // Placeholder URL
-        },
-        {
-            id: 2,
-            name: "Rajib Hassan",
-            subject: "Data Science Student",
-            review: "I found a great peer for practicing complex Python algorithms. The easy-to-use search and profile details made finding the right match quick and effortless.",
-            rating: 4,
-            photo: "https://i.ibb.co/rajib-example.jpg" // Placeholder URL
-        },
-        {
-            id: 3,
-            name: "Sadia Rahman",
-            subject: "English Literature",
-            review: "The 'Offline' mode filter was perfect! I found a study buddy nearby for joint revision sessions. It made studying for final exams much more engaging.",
-            rating: 5,
-            photo: "https://i.ibb.co/sadia-example.jpg" // Placeholder URL
-        }
-    ];
-
-    // Function to render star icons based on the rating
-    const renderStars = (rating) => {
-        const stars = [];
-        for (let i = 0; i < 5; i++) {
-            stars.push(
-                <FaStar
-                    key={i}
-                    className={`h-5 w-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                />
-            );
-        }
-        return <div className="flex justify-center mb-4">{stars}</div>;
-    };
-
     return (
-        // Changed bg-white to bg-primary
-        <section className="py-16 bg-primary" id="testimonials">
-            <div className="container mx-auto px-4">
-                <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">
-                    Hear From Our Users
-                </h2>
-                <p className="text-center text-gray-900 mb-12 max-w-2xl mx-auto">
-                    See how StudyMate has helped students worldwide achieve their learning goals through collaboration.
-                </p>
+        <div className='lg:max-w-[1440px] mx-auto my-10'>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {reviews.map((review) => (
-                        <div
-                            key={review.id}
-                            // Changed card classes to use bg-secondary and border-indigo-600
-                            className="bg-secondary p-8 rounded-lg shadow-xl text-center transition-transform duration-300 hover:shadow-2xl hover:scale-[1.02] border border-indigo-600"
-                        >
-                            {/* Quote Icon */}
-                            <FaQuoteLeft className="text-indigo-600 text-3xl mx-auto mb-4" />
+            <h2 className='mt-10 text-3xl font-semibold text-center mb-5'>
+                What Students Say About StudyMate
+            </h2>
 
-                            {/* Stars */}
-                            {renderStars(review.rating)}
+            <Swiper
+                slidesPerView={2}
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    clickable: true,
+                }}
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                }}
 
-                            {/* Review Text */}
-                            <p className="text-gray-900 italic mb-6">
-                                "{review.review}"
-                            </p>
+                modules={[Autoplay, Pagination]}
+                className="mySwiper h-[400px]"
+            >
 
-                            {/* Reviewer Profile */}
-                            <div className="flex flex-col items-center">
+                {reviewsData.map((review, index) => (
+                    <SwiperSlide key={index}>
+                        <div className='text-black p-5 bg-primary m-5 rounded-xl '>
+
+                            {/* Reviewer Section (Uniform Size) */}
+                            <div className='flex gap-3 items-center h-[70px]'>
                                 <img
-                                    className="w-16 h-16 rounded-full object-cover mb-3 border-2 border-indigo-600"
-                                    src={review.photo}
-                                    alt={review.name}
+                                    className='w-14 h-14 rounded-full object-cover'
+                                    src="https://img.icons8.com/?size=100&id=AZazdsitsrgg&format=png&color=000000"
+                                    alt=""
                                 />
-                                <p className="font-semibold text-black">
-                                    {review.name}
-                                </p>
-                                <p className="text-sm text-indigo-600">
-                                    {review.subject}
-                                </p>
+
+                                <div className='flex flex-col justify-center w-[180px]'>
+                                    <h2 className='font-mono text-base leading-tight'>{review[0]}</h2>
+                                    <p className='font-light text-sm leading-tight'>StudyMate User</p>
+                                </div>
                             </div>
+
+                            {/* Review Content */}
+                            <div className='flex gap-2 mt-4'>
+                                <div className='flex items-start'>
+                                    <img
+                                        src="https://img.icons8.com/?size=100&id=38968&format=png&color=000000"
+                                        alt=""
+                                    />
+                                </div>
+
+                                <p className='font-light text-lg my-3 text-center'>
+                                    {review[1]}
+                                </p>
+
+                                <div className='flex items-end'>
+                                    <img
+                                        src="https://img.icons8.com/?size=100&id=38970&format=png&color=000000"
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+
                         </div>
-                    ))}
-                </div>
-            </div>
-        </section>
+                    </SwiperSlide>
+                ))}
+
+            </Swiper>
+        </div>
     );
-};
+}
 
 export default Review;

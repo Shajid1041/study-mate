@@ -26,7 +26,7 @@ const HowItWorks = () => {
     ];
 
     return (
-        <section className="py-16 bg-primary" id="how-it-works">
+        <section className="py-16 " id="how-it-works">
             <div className="container mx-auto px-4">
                 <h2 className="text-4xl font-bold text-center text-gray-800 mb-12 ">
                     🤝 How StudyMate Works
@@ -39,7 +39,7 @@ const HowItWorks = () => {
                     {steps.map((step, index) => (
                         <React.Fragment key={index}>
                             {/* Step Card */}
-                            <div className="flex-1 min-w-0 max-w-sm bg-secondary rounded-lg shadow-xl p-6 text-center transition-transform duration-300 hover:scale-[1.02] border-2  border-t-4 border-indigo-600">
+                            <div className="flex-1 min-w-0 max-w-sm bg-primary rounded-lg shadow-xl p-6 text-center transition-transform duration-300 hover:scale-[1.02]">
                                 {step.icon}
                                 <h3 className="text-2xl font-semibold  mb-3 text-black">
                                     {step.title}

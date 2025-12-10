@@ -121,21 +121,19 @@ const FindPartners = () => {
                                 key={partner._id}
                                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
                             >
-                                <div className="p-5 text-center">
+                                <div className="p-5 text-center space-y-2">
                                     <img
-                                        src={partner.photoUrl || '/default-avatar.png'}
+                                        src={partner.profileimage }
                                         alt={partner.name}
                                         className="w-24 h-24 rounded-full object-cover mx-auto border-2 border-gray-200"
-                                        onError={(e) => {
-                                            e.target.src = '/default-avatar.png';
-                                        }}
+                                        
                                     />
                                     <h3 className="text-xl font-semibold text-gray-800 mt-3">{partner.name}</h3>
                                     <p className="text-gray-600 mt-1"><span className="font-medium">Subject:</span> {partner.subject}</p>
                                     <p className="text-gray-600"><span className="font-medium">Study Mode:</span> {partner.studyMode}</p>
                                     <p className="text-gray-600"><span className="font-medium">Experience:</span> {partner.experienceLevel}</p>
                                     
-                                    <Link to={`/find-partners/${partner._id}`} className="btn btn-primary px-8">View Profile</Link>
+                                    <Link to={`/find-partners/${partner._id}`} className="btn text-white bg-secondary px-8">View Profile</Link>
                                 </div>
                             </div>
                         ))}

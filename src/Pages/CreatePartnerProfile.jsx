@@ -86,8 +86,8 @@ const CreatePartnerProfile = () => {
     if (!user) return null;
 
     return (
-        <div className=" min-h-screen bg-base-100 py-10 px-4 sm:px-6 lg:px-8">
-            <div className="mt-20 max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-md">
+        <div className=" min-h-screen bg-white   py-10 px-4 sm:px-6 lg:px-8">
+            <div className="mt-20 max-w-2xl mx-auto border border-secondary border-dashed p-6 sm:p-8 rounded-xl shadow-md ">
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
                     Create Your Study Partner Profile
                 </h2>
@@ -249,7 +249,7 @@ const CreatePartnerProfile = () => {
                             disabled={submitting}
                             className={`w-full py-2 px-4 rounded-md text-white font-medium ${submitting
                                     ? 'bg-blue-400 cursor-not-allowed'
-                                    : 'bg-blue-600 hover:bg-blue-700'
+                                    : 'bg-secondary hover:bg-blue-600'
                                 } transition-colors`}
                         >
                             {submitting ? 'Creating Profile...' : 'Create Profile'}

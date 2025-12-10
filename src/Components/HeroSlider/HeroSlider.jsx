@@ -20,23 +20,22 @@ const HeroSlider = () => {
         progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     };
     const imageLinks = [
-        "https://i.postimg.cc/MTYZGnGw/jamie-street-s9Tf1e-BDFqw-unsplash.jpg",
-        "https://i.postimg.cc/Bns0jqdK/one.jpg",
-        "https://i.postimg.cc/7hLsTRqx/j-balla-photography-c-Mti-Wji-Avq4-unsplash.jpg",
-        "https://i.postimg.cc/bJMGPGVy/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash.jpg",
-        "https://i.postimg.cc/3wyctVG2/pharma-hemp-complex-QTQscp2q-Q-Y-unsplash.jpg",
-        "https://i.postimg.cc/GmrC4cZC/raymond-yeung-V4Hx-RGJn-Md-M-unsplash.jpg",
-        "https://i.postimg.cc/MHSS1qvC/yansi-keim-gaweuh7f29s-unsplash.jpg"
+        "https://i.postimg.cc/W1wZv08h/Studying-rafiki.png",
+        "https://i.postimg.cc/d1KgyPd5/Telecommuting-rafiki.png",
+        "https://i.postimg.cc/mDwp1cTt/Shared-workspace-rafiki.png",
+        "https://i.postimg.cc/bJBb58gY/Online-learning-rafiki-(1).png",
+        "https://i.postimg.cc/HjG6fb2Z/Team-work-rafiki.png",
+        "https://i.postimg.cc/4NkkCcm3/Team-rafiki.png"
+
     ];
 
     const headingText = [
-        <h1>Give Your Pet the <span className='text-warning'>Warmest, Safest </span>Winter Possible.</h1>,
-        <h1>Shop Essential Winter <span className='text-warning'>Sweaters and Heating Pads</span>.</h1>,
-        <h1>Ensure <span className='text-warning'>Healthy Skin</span> and <span className='text-warning'>Shiny Coats</span> This Cold Season.</h1>,
-        <h1><span className='text-warning'>Expert Tips</span> to Protect Your Pet from Winter Cold.</h1>,
-        <h1>Boost <span className='text-warning'>Immunity</span> and <span className='text-warning'>Energy</span> with the Best Winter Diet.</h1>,
-        <h1>Stop Cracked <span className='text-warning'>Paws</span>.</h1>,
-        <h1><span className='text-warning'>All the Resources</span> You Need for a Happy Winter Pet Life.</h1>
+        <h1>Give Your Learning the <span className='text-secondary'>Boost It Needs</span> with StudyMate.</h1>,
+        <h1>Find <span className='text-secondary'>Study Partners</span> and <span className='text-secondary'>Practice Sessions</span> Effortlessly.</h1>,
+        <h1>Ensure <span className='text-secondary'>Consistent Progress</span> and <span className='text-secondary'>Better Grades</span> This Semester.</h1>,
+        <h1>Boost <span className='text-secondary'>Focus</span> and <span className='text-secondary'>Efficiency</span> with Smart Study Plans.</h1>,
+        <h1>Stop <span className='text-secondary'>Procrastination</span> and Stay on Track with StudyMate.</h1>,
+        <h1><span className='text-secondary'>All the Tools</span> You Need for a Productive Study Routine.</h1>
     ];
 
 
@@ -60,11 +59,32 @@ const HeroSlider = () => {
             >
                 {
 
-                    imageLinks.map((src) => <SwiperSlide className='relative'>
-                        <img className='w-full h-full object-cover' src={src} alt="" />
-                        <div className="absolute inset-0 z-100 bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4))]"></div>
+                    imageLinks.map((src, index) => <SwiperSlide className='relative' key={index}>
+
+                        {/* Wrapper flex container */}
+                        <div className={`w-full h-full flex ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse text-end'}`}>
+
+                            {/* Text Overlay */}
+                            <div className="relative flex-1 flex items-center justify-center p-8 md:p-20">
+                                <div className="text-black font-extrabold text-2xl md:text-4xl xl:text-7xl">
+                                    {headingText[index]}
+                                </div>
+                            </div>
+
+                            {/* Image */}
+                            <div className="flex-1 h-full flex justify-center items-center">
+                                <img
+                                    className=" h-fit object-cover"
+                                    src={src}
+                                    alt=""
+                                />
+                            </div>
+
+                        </div>
+
                     </SwiperSlide>
-)
+
+                    )
                 }
                 <div className="autoplay-progress" slot="container-end">
                     <svg viewBox="0 0 48 48" ref={progressCircle}>
