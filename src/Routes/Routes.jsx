@@ -8,6 +8,7 @@ import FindPartners from "../Pages/FindPartners";
 import PartnerDetails from "../Components/PartnerDetails/PartnerDetails";
 import MyConnection from "../Pages/MyConnection";
 import Profile from "../Components/Profile/Profile";
+import PrivateRoutes from "./PrivateRoutes";
 
 
 
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         Component: Root,
         children: [
             {
-                index:  true,
+                index: true,
                 element: <Home></Home>
             },
             {
@@ -30,7 +31,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <Profile></Profile>
+                element: <PrivateRoutes>
+                    <Profile></Profile>
+                </PrivateRoutes>
             },
             {
                 path: 'find-partners',
@@ -39,15 +42,21 @@ export const router = createBrowserRouter([
             {
                 path: '/find-partners/:id',
                 loader: ({ params }) => fetch(`http://localhost:3000/partners/${params.id}`),
-                element: <PartnerDetails></PartnerDetails>
+                element: <PrivateRoutes>
+                    <PartnerDetails></PartnerDetails>
+                </PrivateRoutes>
             },
             {
                 path: '/create-partner-profile',
-                element: <CreatePartnerProfile></CreatePartnerProfile>
+                element: <PrivateRoutes>
+                    <CreatePartnerProfile></CreatePartnerProfile>
+                    </PrivateRoutes>
             },
             {
                 path: 'my-connection',
-                element: <MyConnection></MyConnection>
+                element: <PrivateRoutes>
+                    <MyConnection></MyConnection>
+                </PrivateRoutes>
             }
         ]
     }

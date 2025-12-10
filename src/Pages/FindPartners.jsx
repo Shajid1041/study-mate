@@ -1,6 +1,7 @@
 // FindPartners.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
+import Loader from '../Components/Loader/Loader';
 
 const FindPartners = () => {
     const [partners, setPartners] = useState([]);
@@ -57,9 +58,7 @@ const FindPartners = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <p className="text-lg text-gray-600">Loading partners...</p>
-            </div>
+            <Loader></Loader>
         );
     }
 
