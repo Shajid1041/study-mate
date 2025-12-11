@@ -9,6 +9,7 @@ import PartnerDetails from "../Components/PartnerDetails/PartnerDetails";
 import MyConnection from "../Pages/MyConnection";
 import Profile from "../Components/Profile/Profile";
 import PrivateRoutes from "./PrivateRoutes";
+import PageNotFound from "../Components/PageNotFound/PageNotFound";
 
 
 
@@ -57,7 +58,15 @@ export const router = createBrowserRouter([
                 element: <PrivateRoutes>
                     <MyConnection></MyConnection>
                 </PrivateRoutes>
+            },
+            {
+                path: "*",
+                element: <PageNotFound></PageNotFound>
             }
         ]
+    },
+    {
+        path: "*",
+        Component: PageNotFound
     }
 ])

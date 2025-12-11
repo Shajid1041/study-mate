@@ -13,10 +13,10 @@ export default function GroupStudyCard() {
 
                         {/* 2x2 grid */}
                         <div className="grid grid-cols-2 gap-4 w-44 h-44 md:w-48 md:h-48">
-                            <div className=" bg-secondary/80 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">A</div>
-                            <div className="bg-secondary/60 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">B</div>
-                            <div className="bg-secondary/50 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">C</div>
-                            <div className="bg-secondary/40 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">D</div>
+                            <div className=" bg-secondary/80 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">Phy.</div>
+                            <div className="bg-secondary/60 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">Che.</div>
+                            <div className="bg-secondary/50 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">Bio.</div>
+                            <div className="bg-secondary/40 rounded-lg shadow flex items-center justify-center text-white text-lg font-bold">Math.</div>
                         </div>
 
                         {/* Decorative corner */}

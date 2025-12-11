@@ -2,14 +2,20 @@ import React, { use, useState } from "react";
 import { useLoaderData } from "react-router";
 import Swal from 'sweetalert2';
 import { AuthContext } from "../../Context/AuthContext";
+import NotFounded from "../NotFounded/NotFounded";
 
 const PartnerDetails = () => {
     const partner = useLoaderData();
     const {user} = use(AuthContext)
     const email = user.email
     const [connections, setConnection] = useState([])
+    if(!partner._id){
+        return (
+            <NotFounded></NotFounded>
+        );
+    }
     const sendRequest = () => {
-        console.log(partner)
+        
         const newConnection = {
             email : email,
             partner : partner._id

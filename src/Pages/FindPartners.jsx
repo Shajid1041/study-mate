@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Loader from '../Components/Loader/Loader';
+import NotFounded from '../Components/NotFounded/NotFounded';
 
 const FindPartners = () => {
     const [partners, setPartners] = useState([]);
@@ -30,6 +31,7 @@ const FindPartners = () => {
         };
 
         fetchPartners();
+        
     }, []);
 
     // Apply filtering & sorting
@@ -62,13 +64,7 @@ const FindPartners = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <p className="text-lg text-red-600">Error: {error}</p>
-            </div>
-        );
-    }
+    
 
     return (
         <div className="min-h-screen bg-base-200 py-8 px-4 sm:px-6 lg:px-8">
