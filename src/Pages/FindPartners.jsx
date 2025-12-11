@@ -73,7 +73,7 @@ const FindPartners = () => {
     return (
         <div className="min-h-screen bg-base-200 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+                <h1 className="text-2xl md:text-4xl font-extrabold text-secondary mb-6 leading-tight text-center">
                     Find Study Partners
                 </h1>
 

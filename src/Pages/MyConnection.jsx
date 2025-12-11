@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import Loader from '../Components/Loader/Loader';
+import Swal from 'sweetalert2';
 
 const MyConnection = () => {
     const { user } = use(AuthContext)
@@ -40,27 +41,45 @@ const MyConnection = () => {
 
 
     const handleDeleteConnection = (id) => {
-        console.log(id)
-        fetch(`http://localhost:3000/connection/${id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    setConnection(prev => prev.filter(item => item._id !== id));
-                }
-            });
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/connection/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            setConnection(prev => prev.filter(item => item._id !== id));
+                        }
+                    });        
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your connection has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+        // -------------------------------------
+        
     }
     if (loading) {
         return <Loader></Loader>
     }
     if(myConnection.length===0){
-        return <h2 className='text-3xl font-semibold text-center mt-20'>No Connections Found</h2>
+        return <h2 className='text-2xl md:text-4xl font-extrabold text-secondary mb-6 leading-tight text-center mt-20'>No Connections Found</h2>
     }
-
+    console.log(myConnection)
     return (
         <div className='max-w-[1040px] mx-auto mt-15'>
-            <div className="overflow-x-auto mt-8 bg-primary rounded-2xl">
+            <div className="overflow-x-auto mt-8 bg-primary rounded-2xl mx-2">
                 <table className="table">
                     <thead>
                         <tr>
@@ -68,6 +87,7 @@ const MyConnection = () => {
                             <th>Name</th>
                             <th>Subject</th>
                             <th>Time</th>
+                            <th>Manage</th>
                         </tr>
                     </thead>
 
@@ -77,7 +97,7 @@ const MyConnection = () => {
                                 <td className='font-bold'>{index + 1}</td>
 
                                 <td>
-                                    <div className="flex items-center gap-3">
+                                    <div className=" md:flex items-center justify-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle h-12 w-12">
                                                 <img src={connection.profileimage} alt={connection.name} />
@@ -93,17 +113,20 @@ const MyConnection = () => {
                                     {connection.subject}
                                     <br />
                                     <span className="badge badge-ghost badge-sm">
-                                        {connection.experienceLevel}
+                                        {connection.studyMode}
                                     </span>
                                 </td>
 
                                 <td>{connection.availabilityTime}</td>
 
-                                <th>
-                                    <button onClick={() => handleDeleteConnection(connection._id)} className="btn btn-ghost btn-xs">
-                                        Delete Connection
+                                <td>
+                                    <button onClick={() => handleDeleteConnection(connection._id)} className="btn btn-error w-full btn-xs ">
+                                        Delete
                                     </button>
-                                </th>
+                                    <button className="btn btn-active w-full btn-xs mt-2">
+                                        Update
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

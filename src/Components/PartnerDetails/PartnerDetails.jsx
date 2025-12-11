@@ -94,7 +94,7 @@ const PartnerDetails = () => {
                     {/* Send Request Button */}
                     <button
                         onClick={sendRequest}
-                        className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition"
+                        className="mt-6 w-full bg-secondary text-white font-medium py-3 rounded-lg transition"
                     >
                         Send Partner Request
                     </button>
@@ -102,15 +102,15 @@ const PartnerDetails = () => {
 
                 {/* Right Section */}
                 <div>
-                    <div className="bg-gray-100 p-6 rounded-xl shadow">
+                    <div className="bg-primary p-6 rounded-xl shadow">
                         <h2 className="text-2xl font-bold mb-4">Contact Info</h2>
 
-                        <p className="text-gray-700">
+                        <p className="text-accent">
                             <span className="font-semibold">Email:</span> {partner.email}
                         </p>
 
                         <h3 className="text-xl font-bold mt-6 mb-2">About</h3>
-                        <p className="text-gray-600">
+                        <p className="text-accent">
                             This student is actively looking for a study partner who shares similar
                             learning goals and interests.
                         </p>

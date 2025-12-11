@@ -1,7 +1,7 @@
 // CreatePartnerProfile.jsx
 import React, { useState, useEffect, useContext } from 'react';
 
-import { AuthContext } from '../Context/AuthContext'; // 👈 Make sure path is correct
+import { AuthContext } from '../Context/AuthContext'; 
 import { useNavigate } from 'react-router';
 
 const CreatePartnerProfile = () => {
@@ -86,11 +86,12 @@ const CreatePartnerProfile = () => {
     if (!user) return null;
 
     return (
-        <div className=" min-h-screen bg-white   py-10 px-4 sm:px-6 lg:px-8">
-            <div className="mt-20 max-w-2xl mx-auto border border-secondary border-dashed p-6 sm:p-8 rounded-xl shadow-md ">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-                    Create Your Study Partner Profile
-                </h2>
+        <div className=" min-h-screen bg-base-200   py-10 px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-secondary mb-6 leading-tight text-center">
+                Create Your Study Partner Profile
+            </h2>
+            <div className="mt-10 max-w-2xl mx-auto border border-secondary border-dashed p-6 sm:p-8 rounded-xl shadow-md ">
+                
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Name */}
@@ -119,7 +120,7 @@ const CreatePartnerProfile = () => {
                             type="email"
                             value={user.email}
                             readOnly
-                            className="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-not-allowed"
+                            className="mt-1 block w-full px-4 py-2 bg-base-200 border border-gray-300 rounded-md cursor-not-allowed"
                         />
                     </div>
 
@@ -233,7 +234,7 @@ const CreatePartnerProfile = () => {
                             name="experienceLevel"
                             value={formData.experienceLevel}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="mt-1 block bg-base-200 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             required
                         >
                             <option value="Beginner">Beginner</option>

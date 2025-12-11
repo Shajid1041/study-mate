@@ -34,8 +34,8 @@ const Profile = () => {
                     </div>
                 </div>
 
-                <div className="text-center lg:text-left">
-                    <h1 className="text-3xl font-semibold">{user.displayName}</h1>
+                <div className="text-center lg:text-left ">
+                    <h1 className="text-3xl font-semibold text-secondary ">{user.displayName}</h1>
                     <p className="link link-hover">{user.email}</p>
                 </div>
 

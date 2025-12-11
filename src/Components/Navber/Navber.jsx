@@ -47,17 +47,18 @@ const Navber = ({ theme, toggleTheme }) => {
                     </ul>
                 </div>
                 <Link to={'/'} className='flex justify-center items-center'>
-                    <img src="https://img.icons8.com/?size=100&id=XzAcd8pN-P8p&format=png&color=000000" className='w-10' alt="" />
-                    <span className="text-2xl font-bold text-white ml-1">StudyMate</span>
+                    <img src="https://img.icons8.com/?size=100&id=XzAcd8pN-P8p&format=png&color=000000" className='w-8 md:w-10' alt="" />
+                    <span className="text-xl md:text-2xl font-bold text-white ml-1">StudyMate</span>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex text-white">
                 <ul className="menu menu-horizontal px-1 text-lg">
                     {links}
+
                 </ul>
             </div>
             <div className="navbar-end">
-                
+
                 {user ?
                     <>
                         <div className="dropdown dropdown-end mr-3">
@@ -82,15 +83,21 @@ const Navber = ({ theme, toggleTheme }) => {
                     </>
                     :
                     <>
-                        <Link to={'/signin'} className="btn btn-sm md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-3">Sign in</Link>
-                        <Link to={'/register'} className="btn btn-sm md:btn-md btn-dash btn-primary">Register</Link>
+
+
+
+
+
+                        <Link to={'/signin'} className="btn btn-xs md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-1 md:mr-3">Sign in</Link>
+                        <Link to={'/register'} className="btn btn-xs md:btn-md btn-dash btn-primary">Register</Link>
+
                     </>}
                 <button
                     onClick={toggleTheme}
-                    className="btn btn-sm md:btn-md btn-dash btn-primary ml-3 text-white"
+                    className="btn btn-xs md:btn-md btn-dash btn-primary ml-1 md:ml-3 text-white"
                     title="Toggle Light/Dark"
                 >
-                    {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+                    {theme === 'light' ? 'Dark' : 'Light'}
                 </button>
             </div>
         </div>

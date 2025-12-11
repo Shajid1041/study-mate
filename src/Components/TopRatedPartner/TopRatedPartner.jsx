@@ -34,44 +34,46 @@ export default function TopRatedPartner() {
             </div>
 
             {/* ====== Swiper Slider ====== */}
-            <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
-                pagination={{
-                    clickable: true,
-                }}
-                modules={[Autoplay, Pagination]}
-                className="mySwiper h-[420px] text-black mb-15"
-                breakpoints={{
-                    0: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    1280: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
-                }}
-            >
-                {TopRatedPartners.map(partner => (
-                    <SwiperSlide
-                        
-                        
-                        className="max-w-[350px] md:max-w-[450px] m-3 flex justify-center"
-                    >
-                        <StudyPartnerCard partner={partner} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            <div>
+                <Swiper
+                    slidesPerView={3}
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    modules={[Autoplay, Pagination]}
+                    className="mySwiper h-[420px]  text-black mb-15"
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1,
+                            spaceBetween: 10,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                        1280: {
+                            slidesPerView: 3,
+                            spaceBetween: 30,
+                        },
+                    }}
+                >
+                    {TopRatedPartners.map(partner => (
+                        <SwiperSlide
+
+
+                            className="max-w-[350px] md:max-w-[450px] m-5 flex justify-center items-center"
+                        >
+                            <StudyPartnerCard partner={partner} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </div>
     );
 }
