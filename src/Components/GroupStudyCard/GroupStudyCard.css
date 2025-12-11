@@ -1,0 +1,14 @@
+/* HTML: <div class="puzzle"></div> */
+.puzzle1 {
+    --r: 30px;
+    /* control the circle radius */
+    --s: 200px;
+    /* control the main size */
+
+    width: var(--s);
+    height: calc(var(--s) + var(--r));
+    mask:
+        radial-gradient(var(--r) at 50% calc(100% - var(--r)), #000 calc(100% - 1px), #0000),
+        radial-gradient(var(--r) at right, #0000 calc(100% - 1px), #000) 0 0/100% calc(100% - var(--r)) no-repeat;
+    background: #774F38;
+}

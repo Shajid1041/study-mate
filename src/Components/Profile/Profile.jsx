@@ -1,93 +1,123 @@
 import React, { use, useState } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 
-
-
 const Profile = () => {
-
-
-    const { user, setProfileData, setLoader } = use(AuthContext)
-    const [error, setError] = useState('')
-    const [updateclick, setUpdateClick] = useState(true)
-
+    const { user, setProfileData, setLoader } = use(AuthContext);
+    const [error, setError] = useState('');
+    const [updateclick, setUpdateClick] = useState(true);
 
     const handleUpdateProfileClick = () => {
-        setUpdateClick(!updateclick)
-    }
+        setUpdateClick(!updateclick);
+    };
+
     const handleClickSave = (event) => {
         event.preventDefault();
-        const name = event.target.name.value
-        const photo = event.target.photo.value
+        const name = event.target.name.value;
+        const photo = event.target.photo.value;
 
         setProfileData(name, photo)
             .then(() => {
-                setUpdateClick(!updateclick)
-                setLoader(false)
-            }).catch(error => setError(error.message))
-
-
-
-    }
+                setUpdateClick(true);
+                setLoader(false);
+            })
+            .catch((error) => setError(error.message));
+    };
 
     return (
-        <div className='max-w-[1140px] px-5 mx-auto grid grid-cols-5 grid-3 xl:grid-rows-8'>
-            <div className='flex flex-col xl:flex-row justify-center items-center gap-5 my-5 xl:my-15 col-span-5 xl:col-span-2 row-span-1 xl:row-span-4 '>
+        <div className="max-w-[1200px] mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+            {/* LEFT — USER INFO */}
+            <div className="flex flex-col items-center lg:items-start gap-5 col-span-1 lg:col-span-2">
                 <div className="avatar">
-                    <div className="ring-primary ring-offset-base-100 w-50 rounded-full ring-2 ring-offset-2">
-                        <img src={user.photoURL} />
+                    <div className="ring-primary ring-offset-base-100 w-48 h-48 rounded-full ring-2 ring-offset-2 overflow-hidden">
+                        <img src={user.photoURL} alt="User" />
                     </div>
                 </div>
-                <div>
-                    <h1 className='text-2xl'>{user.displayName}</h1>
-                    <p className='link link-hover'>{user.email}</p>
+
+                <div className="text-center lg:text-left">
+                    <h1 className="text-3xl font-semibold">{user.displayName}</h1>
+                    <p className="link link-hover">{user.email}</p>
                 </div>
-            </div>
-            <div className='order-3 xl:order-2 flex justify-end col-span-5 xl:col-span-3 row-span-1 xl:row-span-8 xl:mt-50'>
-                <div className='max-w-[90vw] md:max-w-[800px] mx-auto'>
-                    <h1 className='text-7xl text-secondary font-semibold'>Hi {user.displayName}</h1>
-                    <h2 className='text-3xl'>You wanna share your notes with us?</h2>
-                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 my-5 ">
-                        <legend className="fieldset-legend ml-10">Upload Your Notes</legend>
-                        <div className="">
-                            
-                            <textarea className='w-full input m-3   ' name="" id=""></textarea>
-                            <input type="text" className="input m-3" placeholder="" />
-                            <input type="text" className="input m-3" placeholder="" />
-                            <button className="btn join-item ">Upload</button>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div className='mx-auto xl:ml-8 my-5 xl:my-0 row-span-1 xl:row-span-4 order-2 xl:order-3 col-span-5 xl:col-span-2 '>
-                {updateclick ?
-                    <>
-                        <button onClick={handleUpdateProfileClick}
-                            className='btn btn-secondary transition duration-500 ease-in-out 
-            transform hover:scale-105'>Update Profile</button>
-                        <p className='text-red-600 text-sm font-mono text-center '>{error}</p>
-                    </>
-                    : <>
-                        <form onSubmit={handleClickSave}>
-                            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-                                <legend className="fieldset-legend">Page details</legend>
 
+                {/* Update Profile Button / Form */}
+                <div className="w-full mt-5">
+                    {updateclick ? (
+                        <>
+                            <button
+                                onClick={handleUpdateProfileClick}
+                                className="btn btn-secondary w-full lg:w-auto hover:scale-105 transition"
+                            >
+                                Update Profile
+                            </button>
+                            <p className="text-red-600 text-sm text-center font-mono mt-2">{error}</p>
+                        </>
+                    ) : (
+                        <form onSubmit={handleClickSave} className="w-full">
+                            <fieldset className="fieldset bg-base-200 border-base-300 rounded-xl p-4 shadow-sm">
+                                <legend className="fieldset-legend font-semibold">Update Details</legend>
 
-                                <input type="text" className="input" name='name' placeholder="New Name" />
+                                <input
+                                    type="text"
+                                    name="name"
+                                    className="input input-bordered w-full mb-3"
+                                    placeholder="New Name"
+                                />
 
+                                <input
+                                    type="text"
+                                    name="photo"
+                                    className="input input-bordered w-full mb-3"
+                                    placeholder="New Photo URL"
+                                />
 
-                                <input type="text" name='photo' className="input" placeholder="New Photo URL" />
-
-                                <button className="btn join-item" >save</button>
+                                <button className="btn btn-secondary w-full">Save</button>
                             </fieldset>
                         </form>
-                    </>
-
-                }
+                    )}
+                </div>
             </div>
 
+            {/* RIGHT — NOTES UPLOAD */}
+            <div className="col-span-1 lg:col-span-3">
+                <h1 className="text-5xl md:text-6xl text-secondary font-extrabold leading-tight">
+                    Hi {user.displayName}
+                </h1>
 
+                <h2 className="text-xl md:text-2xl text-gray-700 mt-2">
+                    You wanna share your notes with us?
+                </h2>
+
+                <fieldset className="fieldset bg-base-200 border border-base-300 rounded-xl w-full p-6 mt-8 shadow-sm">
+                    <legend className="fieldset-legend text-lg font-semibold text-secondary px-3">
+                        Upload Your Notes
+                    </legend>
+
+                    <div className="flex flex-col gap-5 mt-4">
+                        <textarea
+                            className="textarea textarea-bordered w-full min-h-[150px] focus:outline-secondary"
+                            name="notes"
+                            placeholder="Write or paste your notes here..."
+                        ></textarea>
+
+                        <input
+                            type="text"
+                            className="input input-bordered w-full focus:outline-secondary"
+                            placeholder="Subject Name (e.g., Physics)"
+                        />
+
+                        <input
+                            type="text"
+                            className="input input-bordered w-full focus:outline-secondary"
+                            placeholder="Topic Name (e.g., Newton's Laws)"
+                        />
+
+                        <button className="btn bg-secondary text-white hover:bg-secondary/90 w-fit px-8 font-semibold">
+                            Upload
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
         </div>
-
     );
 };
 

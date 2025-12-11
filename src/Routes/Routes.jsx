@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
                 </PrivateRoutes>
             },
             {
-                path: 'find-partners',
+                path: '/find-partners',
                 element: <FindPartners></FindPartners>
             },
             {

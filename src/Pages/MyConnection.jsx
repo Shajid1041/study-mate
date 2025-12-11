@@ -1,36 +1,45 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
+import Loader from '../Components/Loader/Loader';
 
 const MyConnection = () => {
     const { user } = use(AuthContext)
     const [myConnection, setConnection] = useState([])
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (user?.email) {
-            console.log(user.email)
-            fetch(`http://localhost:3000/connection?email=${user.email}`)
-                .then(res => res.json())
-                .then(async (data) => {
+            try{
+                fetch(`http://localhost:3000/connection?email=${user.email}`)
+                    .then(res => res.json())
+                    .then(async (data) => {
 
-                    // 1️⃣ Get partner IDs correctly
-                    const partnerIds = data
-                        .filter(eachData => eachData.partner)   // FIXED
-                        .map(eachData => eachData.partner);      // get IDs
+                        // Remove duplicate partner IDs
+                        const partnerIds = [...new Set(
+                            data
+                                .filter(eachData => eachData.partner)
+                                .map(eachData => eachData.partner)
+                        )];
 
-                    // 2️⃣ Fetch all partners by ID
-                    const partnerData = await Promise.all(
-                        partnerIds.map(id =>
-                            fetch(`http://localhost:3000/partners/${id}`).then(res => res.json())
-                        )
-                    );
+                        // Fetch partner details only once
+                        const partnerData = await Promise.all(
+                            partnerIds.map(id =>
+                                fetch(`http://localhost:3000/partners/${id}`).then(res => res.json())
+                            )
+                        );
 
-                    setConnection(partnerData);
-                })
+                        setConnection(partnerData);
+                    });
+            }catch(error){
+                console.error("Error fetching connections:", error);
+            }finally{
+                setLoading(false);
+            }
         }
     }, [user?.email]);
 
 
-    const handleDeleteConnection = (id) =>{
+    const handleDeleteConnection = (id) => {
         console.log(id)
         fetch(`http://localhost:3000/connection/${id}`, {
             method: "DELETE"
@@ -41,6 +50,12 @@ const MyConnection = () => {
                     setConnection(prev => prev.filter(item => item._id !== id));
                 }
             });
+    }
+    if (loading) {
+        return <Loader></Loader>
+    }
+    if(myConnection.length===0){
+        return <h2 className='text-3xl font-semibold text-center mt-20'>No Connections Found</h2>
     }
 
     return (

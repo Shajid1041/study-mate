@@ -4,8 +4,18 @@
     name: "light";
     --color-primary: #CCCCFF;
     --color-secondary: #7070FF;
-    --color-accent: #E8F9FF;
+    --color-accent: #332333;
     --color-base-100: white;
+    --color-base-200: white;
+}
+/* dark theme */
+@plugin "daisyui/theme" {
+    name: "dark";
+    --color-primary: #004A75;
+    --color-secondary: #031254;
+    --color-accent: #9290C3;
+    --color-base-100: #9290C3;
+    --color-base-200: #9290C3;
 }
 
 @layer components {

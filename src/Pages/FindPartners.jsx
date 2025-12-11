@@ -71,24 +71,24 @@ const FindPartners = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-base-200 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
                     Find Study Partners
                 </h1>
 
                 {/* Controls: Sort (left) & Search (right) */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <div className=" flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     {/* Sort Dropdown (Left) */}
-                    <div className="flex items-center space-x-2">
-                        <label htmlFor="sort" className="text-gray-700 font-medium">
+                    <div className="flex items-center space-x-2 text-gray-600">
+                        <label htmlFor="sort" className="text-gray-70 font-medium">
                             Sort by:
                         </label>
                         <select
                             id="sort"
                             value={sortOption}
                             onChange={(e) => setSortOption(e.target.value)}
-                            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="border border-secondary rounded-md px-3 py-2 focus:outline-none bg-base-200 focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="name">Name</option>
                             <option value="subject">Subject</option>
@@ -97,13 +97,13 @@ const FindPartners = () => {
                     </div>
 
                     {/* Search Input (Right) */}
-                    <div className="w-full sm:w-auto">
+                    <div className="w-full sm:w-auto text-gray-600">
                         <input
                             type="text"
                             placeholder="Search by name or subject..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full sm:w-64 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full sm:w-64 border border-secondary rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                 </div>
@@ -118,7 +118,7 @@ const FindPartners = () => {
                         {filteredPartners.map((partner) => (
                             <div
                                 key={partner._id}
-                                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                                className="bg-base-200 border-2 border-primary rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
                             >
                                 <div className="p-5 text-center space-y-2">
                                     <img

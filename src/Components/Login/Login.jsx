@@ -1,5 +1,5 @@
 import React, { use, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 
 const Login = () => {
@@ -76,7 +76,7 @@ const Login = () => {
                         </div><div><a onClick={handleClickForgot} className="link link-hover">Forgot password?</a></div>
                         <p className='text-red-600'>{error}</p>
 
-                        <button className="btn btn-primary w-full" type="submit">
+                        <button className="btn btn-secondary w-full" type="submit">
                             Sign In
                         </button>
                     </form>
@@ -90,6 +90,7 @@ const Login = () => {
                     >
                         Continue with Google
                     </button>
+                    <p className='mt-4 text-center text-[16px]'>Don't have an account? <Link className='link link-hover text-blue-700 font-semibold' to={'/register'}>Register</Link></p>
                 </div>
             </div>
             <dialog id="my_modal_3" className="modal">

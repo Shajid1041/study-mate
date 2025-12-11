@@ -27,7 +27,7 @@ const Review = () => {
     return (
         <div className='lg:max-w-[1440px] mx-auto my-10'>
 
-            <h2 className='mt-10 text-3xl font-semibold text-center mb-5'>
+            <h2 className='text-3xl md:text-5xl font-extrabold text-secondary mb-6 leading-tight text-center'>
                 What Students Say About StudyMate
             </h2>
 
@@ -59,7 +59,7 @@ const Review = () => {
 
                 {reviewsData.map((review, index) => (
                     <SwiperSlide key={index}>
-                        <div className='text-black p-5 bg-primary m-5 rounded-xl '>
+                        <div className='text-accent p-5 bg-primary m-5 rounded-xl '>
 
                             {/* Reviewer Section (Uniform Size) */}
                             <div className='flex gap-3 items-center h-[70px]'>

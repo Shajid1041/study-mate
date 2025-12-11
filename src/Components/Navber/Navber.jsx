@@ -2,27 +2,36 @@ import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 
-const Navber = () => {
-    const { user, signOutUser } = use(AuthContext)
+const Navber = ({ theme, toggleTheme }) => {
+    const { user, signOutUser, loader } = use(AuthContext)
     const handleSignOut = () => {
         signOutUser()
     }
     console.log(user)
+    const links = (
+        <>
+            <li>
+                <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+                <NavLink to="/find-partners">Find Partners</NavLink>
+            </li>
 
-    const links = <>
-        <li>
-            <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-            <NavLink to="/find-partners">Find Partners</NavLink>
-        </li>
-        <li>
-            <NavLink to="/create-partner-profile">Create Partner Profile</NavLink>
-        </li>
-        <li>
-            <NavLink to="/my-connection">My Connection</NavLink>
-        </li>
-    </>
+            {/* Only show if user is logged in */}
+            {user && (
+                <li>
+                    <NavLink to="/create-partner-profile">Create Partner Profile</NavLink>
+                </li>
+            )}
+
+            {/* Only show if some other condition is true */}
+            {user && (
+                <li>
+                    <NavLink to="/my-connection">My Connection</NavLink>
+                </li>
+            )}
+        </>
+    );
 
     return (
         <div className="navbar bg-secondary z-999 ">
@@ -37,7 +46,10 @@ const Navber = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to={'/'} className="text-2xl font-bold text-white">StudyMate</Link>
+                <Link to={'/'} className='flex justify-center items-center'>
+                    <img src="https://img.icons8.com/?size=100&id=XzAcd8pN-P8p&format=png&color=000000" className='w-10' alt="" />
+                    <span className="text-2xl font-bold text-white ml-1">StudyMate</span>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex text-white">
                 <ul className="menu menu-horizontal px-1 text-lg">
@@ -45,33 +57,41 @@ const Navber = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+                
                 {user ?
-                <>
-                <div className="dropdown dropdown-end mr-3">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img
-                                alt="Tailwind CSS Navbar component"
+                    <>
+                        <div className="dropdown dropdown-end mr-3">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Tailwind CSS Navbar component"
                                         src={user.photoURL} />
-                        </div>
-                    </div>
-                    <ul
-                        tabIndex="-1"
-                        className="menu menu-lg dropdown-content rounded-box z-1 mt-3 w-32 p-2 shadow bg-primary">
-                        <li>
-                            <Link to={'/profile'} className="justify-between">
-                                Profile
-                            </Link>
-                        </li>
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex="-1"
+                                className="menu menu-lg dropdown-content rounded-box z-1 mt-3 w-32 p-2 shadow bg-primary">
+                                <li>
+                                    <Link to={'/profile'} className="justify-between">
+                                        Profile
+                                    </Link>
+                                </li>
                                 <li><a onClick={handleSignOut}>Logout</a></li>
-                    </ul>
-                </div>
-                </>
-                :
-                <>
-                    <Link to={'/signin'} className="btn btn-sm md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-3">Sign in</Link>
-                    <Link to={'/register'} className="btn btn-sm md:btn-md btn-dash btn-primary">Register</Link>
-                </>}
+                            </ul>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <Link to={'/signin'} className="btn btn-sm md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-3">Sign in</Link>
+                        <Link to={'/register'} className="btn btn-sm md:btn-md btn-dash btn-primary">Register</Link>
+                    </>}
+                <button
+                    onClick={toggleTheme}
+                    className="btn btn-sm md:btn-md btn-dash btn-primary ml-3 text-white"
+                    title="Toggle Light/Dark"
+                >
+                    {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+                </button>
             </div>
         </div>
 

@@ -66,7 +66,7 @@ const HeroSlider = () => {
 
                             {/* Text Overlay */}
                             <div className="relative flex-1 flex items-center justify-center p-8 md:p-20">
-                                <div className="text-black font-extrabold text-2xl md:text-4xl xl:text-7xl">
+                                <div className="text-accent font-extrabold text-2xl md:text-4xl xl:text-7xl">
                                     {headingText[index]}
                                 </div>
                             </div>
