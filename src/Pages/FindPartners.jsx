@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Loader from '../Components/Loader/Loader';
-import NotFounded from '../Components/NotFounded/NotFounded';
 
 const FindPartners = () => {
     const [partners, setPartners] = useState([]);
