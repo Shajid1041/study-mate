@@ -1,13 +1,18 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 
 const Navber = ({ theme, toggleTheme }) => {
+    
     const { user, signOutUser, loader } = use(AuthContext)
+
+    
+    console.log(user)
     const handleSignOut = () => {
         signOutUser()
     }
     console.log(user)
+
     const links = (
         <>
             <li>
@@ -59,14 +64,17 @@ const Navber = ({ theme, toggleTheme }) => {
             </div>
             <div className="navbar-end">
 
-                {user ?
+                {
+                    
+                    
+                user ?
                     <>
                         <div className="dropdown dropdown-end mr-3">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS Navbar component"
-                                        src={user.photoURL} />
+                                        src={user?.photoURL} />
                                 </div>
                             </div>
                             <ul
@@ -88,8 +96,8 @@ const Navber = ({ theme, toggleTheme }) => {
 
 
 
-                        <Link to={'/signin'} className="btn btn-xs md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-1 md:mr-3">Sign in</Link>
-                        <Link to={'/register'} className="btn btn-xs md:btn-md btn-dash btn-primary">Register</Link>
+                        <Link to={'/signin'} className="btn btn-xs md:btn-md btn-dash btn-primary animate-bounce scale-102 mr-1 md:mr-3 text-white">Sign in</Link>
+                        <Link to={'/register'} className="btn btn-xs md:btn-md btn-dash btn-primary text-white">Register</Link>
 
                     </>}
                 <button

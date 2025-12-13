@@ -8,7 +8,8 @@ const provider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loader, setLoader] = useState(true)
-
+    
+    
     const googleAccess = () => {
         setLoader(true)
         return signInWithPopup(auth, provider)
@@ -28,10 +29,23 @@ const AuthProvider = ({ children }) => {
     }
     const setProfileData = (name, photo) => {
         setLoader(true)
+
         return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
+            displayName: name,
+            photoURL: photo,
         })
+            .then(() => {
+                setUser({
+                    ...auth.currentUser,
+                    displayName: name,
+                    photoURL: photo,
+                })
+            })
+            .finally(() => {
+                setLoader(false)
+            })
     }
+
     const signOutUser = () => {
         setLoader(true)
         return signOut(auth)

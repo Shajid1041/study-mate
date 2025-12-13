@@ -1,6 +1,7 @@
 import React, { use, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 
@@ -75,7 +76,8 @@ const Register = () => {
                 return setProfileData(name, photo);
             })
             .then(() => {
-                // Prepare user data for backend
+
+                navigate(location.state || '/');
                 const newUser = {
                     name: name,
                     email: email,
@@ -94,13 +96,27 @@ const Register = () => {
             .then(res => res.json())
             .then(data => {
                 console.log('User saved in MongoDB:', data);
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your Registration has been complete",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 setSuccess(true);
-                navigate(location.state || '/');
+                
                 event.target.reset();
             })
             .catch(error => {
-                console.error('Registration error:', error);
+                // console.error('Registration error:', error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message || 'Failed to create account.',
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
                 setError(error.message || 'Failed to create account.');
+                
             });
     };
 
@@ -130,11 +146,24 @@ const Register = () => {
             .then(res => res.json())
             .then(data => {
                 console.log('Google user saved in MongoDB:', data);
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your Registration has been complete",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(location.state || '/');
-                // Optional: Swal.fire('Success!', 'Signed in with Google!', 'success');
+                
             })
             .catch(error => {
                 console.error('Google sign-in error:', error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message || 'Failed to sign in with Google.',
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
                 setError(error.message || 'Failed to sign in with Google.');
             });
     };
@@ -142,32 +171,32 @@ const Register = () => {
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-base-200 p-6">
-            <div className="card w-full max-w-md shadow-xl bg-base-100 p-6">
-                <h2 className="text-3xl font-bold text-center mb-4">Register</h2>
+        <div className="mt-10 flex justify-center items-center min-h-screen bg-base-200 p-6">
+            <div className="card w-full max-w-md shadow-xl bg-base-100 p-6 border border-secondary">
+                <h2 className="text-2xl md:text-4xl font-extrabold text-secondary mb-6 leading-tight text-center">Register</h2>
 
-                {error && <div className="alert alert-error mb-3">{error}</div>}
-          {success && <div className="alert alert-success mb-3">{success}</div>}
+                {/* {error && <div className="alert alert-error mb-3">{error}</div>}
+          {success && <div className="alert alert-success mb-3">{success}</div>} */}
 
                 <form onSubmit={handleRegisterSubmit} className="space-y-4">
                     <input
                         type="text"
                         placeholder="Your Name"
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full placeholder-gray-600"
                         name='name'
                         required
                     />
                     <input
                         type="email"
                         placeholder="Your Email"
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full placeholder-gray-600"
                         name='email'
                         required
                     />
                     <input
                         type="text"
                         placeholder="Your Photo URL"
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full placeholder-gray-600"
                         name='photoURL'
                         required
                     />
@@ -175,7 +204,7 @@ const Register = () => {
                     <div className='relative'>
                         <input
                             type={showPassword ? "text" : "password"} name='password'
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full placeholder-gray-600"
                             placeholder="Password" />
                         <button onClick={handleHideShow} className='btn btn-xs absolute top-2 right-2 md:right-2'>{showPassword ? "Hide" : "Show"}</button>
 

@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const StudyPartnerCard = ({ partner }) => {
     
+
     return (
         <div className=" card bg-base-200 w-70  shadow-md p-1 rounded-2xl border-primary">
             <figure className="px-1 pt-1">
@@ -33,7 +35,8 @@ const StudyPartnerCard = ({ partner }) => {
 
                     <div className="card-actions mt-2 w-full">
                         {/* <Link to={`/product-details/${_id}`} className="btn btn-primary px-8">View Details</Link> */}
-                        <button className='btn btn-secondary rounded-4xl w-full' >View Details</button>
+                        <Link to={`/find-partners/${partner._id}`} 
+                            className='btn btn-secondary rounded-4xl w-full' >View Profile</Link>
                     </div>
                 </div>
             </div>

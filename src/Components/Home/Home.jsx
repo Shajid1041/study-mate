@@ -19,7 +19,7 @@ const Home = () => {
                     <HeroSlider></HeroSlider>
                 </div>
                 {/*--------hero slider end---------------  */}
-                <div className='max-w-[1240px] min-h-[90vh] lg:min-h-[80vh]  xl:min-h-[150vh] mt-20 mx-auto '>
+                <div className='max-w-[1240px] min-h-[90vh] lg:min-h-[80vh]  xl:min-h-[155vh] mt-20 mx-auto '>
                     <TopRatedPartner></TopRatedPartner>
                 </div>
 

@@ -5,7 +5,7 @@ import { FaUserPlus, FaSearch, FaHandshake, FaArrowRight } from 'react-icons/fa'
  * A component detailing the simple steps for users to find a study partner on StudyMate.
  * It uses a sequential flow with icons to explain the process clearly.
  */
-const HowItWorks = ({theme}) => {
+const HowItWorks = () => {
     // Define the steps of the process
     const steps = [
         {

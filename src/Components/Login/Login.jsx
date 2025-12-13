@@ -1,10 +1,11 @@
 import React, { use, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const location = useLocation()
-    const navigate = useNavigate(0)
+    const navigate = useNavigate()
     const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [loginEmail, setLoginEmail] = useState('');
@@ -33,10 +34,24 @@ const Login = () => {
         signIn(email, password)
             .then(() => {
                 event.target.reset();
-                // sweetalert2
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Login successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(location.state || '/')
             })
-            .catch(error => setError(error.message))
+            .catch(error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message,
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
+                setError(error.message)
+            })
     }
     const handleClickForgot = () => {
         document.getElementById('my_modal_3').showModal()
@@ -51,9 +66,9 @@ const Login = () => {
     }
     return (
         <div>
-            <div className="flex justify-center items-center min-h-screen bg-base-200 p-6">
-                <div className="card w-full max-w-md shadow-xl bg-base-100 p-6">
-                    <h2 className="text-3xl font-bold text-center mb-4">Sign In</h2>
+            <div className=" flex justify-center items-center min-h-screen bg-base-200 p-6">
+                <div className="card w-full max-w-md shadow-xl bg-base-100 p-6 border border-secondary">
+                    <h2 className="text-2xl md:text-4xl font-extrabold text-secondary mb-6 leading-tight text-center">Sign In</h2>
 
                     {/* {error && <div className="alert alert-error mb-3">{error}</div>}
           {success && <div className="alert alert-success mb-3">{success}</div>} */}
@@ -64,13 +79,13 @@ const Login = () => {
                         <input type="email"
                             name='email'
                             onChange={(e) => setLoginEmail(e.target.value)}
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full placeholder-gray-600"
                             placeholder="Email" />
 
                         <div className='relative'>
                             <input
                                 type={showPassword ? "text" : "password"} name='password'
-                                className="input input-bordered w-full"
+                                className="input input-bordered w-full placeholder-gray-600"
                                 placeholder="Password" />
                             <button onClick={handleHideShow} className='btn btn-xs absolute top-2  right-2 md:right-2'>{showPassword ? "Hide" : "Show"}</button>
                         </div><div><a onClick={handleClickForgot} className="link link-hover">Forgot password?</a></div>
@@ -111,11 +126,11 @@ const Login = () => {
                             defaultValue={loginEmail}
                             type="email"
                             placeholder="Enter your email"
-                            className="input input-bordered w-full mt-2"
+                            className="input input-bordered w-full mt-2 placeholder-gray-600"
                         />
 
                         <button
-                            className="btn btn-neutral w-full mt-3"
+                            className="btn btn-secondary w-full mt-3 "
                             onClick={handlePasswordReset}
                         >
                             Reset Password

@@ -1,11 +1,12 @@
 // CreatePartnerProfile.jsx
 import React, { useState, useEffect, useContext } from 'react';
 
-import { AuthContext } from '../Context/AuthContext'; 
+import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const CreatePartnerProfile = () => {
-    const { user, loading: authLoading } = useContext(AuthContext);
+    const { user, loader : authLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [submitting, setSubmitting] = useState(false);
@@ -26,7 +27,7 @@ const CreatePartnerProfile = () => {
             navigate('/partner-details');
 
         }
-    }, [user, authLoading]);
+    }, [user, authLoading, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -58,16 +59,32 @@ const CreatePartnerProfile = () => {
             const result = await response.json();
 
             if (response.ok) {
-                alert('✅ Study partner profile created successfully!');
-                // Redirect using plain JS (no React Router)
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your Registration has been complete",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/');
 
             } else {
-                alert('❌ ' + (result.error || 'Failed to create profile. You may already have one.'));
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: result.error || 'Failed to create profile. You may already have one.',
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
+                
             }
         } catch (err) {
-            console.error('Error:', err);
-            alert('❌ Network error: ' + err.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: '❌ Network error: ' + err.message,
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+            
         } finally {
             setSubmitting(false);
         }
@@ -91,7 +108,7 @@ const CreatePartnerProfile = () => {
                 Create Your Study Partner Profile
             </h2>
             <div className="mt-10 max-w-2xl mx-auto border border-secondary border-dashed p-6 sm:p-8 rounded-xl shadow-md ">
-                
+
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Name */}
@@ -105,7 +122,7 @@ const CreatePartnerProfile = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             placeholder="e.g., Aisha Rahman"
                             required
                         />
@@ -120,7 +137,7 @@ const CreatePartnerProfile = () => {
                             type="email"
                             value={user.email}
                             readOnly
-                            className="mt-1 block w-full px-4 py-2 bg-base-200 border border-gray-300 rounded-md cursor-not-allowed"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 bg-base-200 border border-gray-300 rounded-md cursor-not-allowed"
                         />
                     </div>
 
@@ -135,7 +152,7 @@ const CreatePartnerProfile = () => {
                             name="profileimage"
                             value={formData.profileimage}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             placeholder="https://example.com/your-photo.jpg"
                         />
                         {formData.profileimage && (
@@ -143,7 +160,7 @@ const CreatePartnerProfile = () => {
                                 <img
                                     src={formData.profileimage}
                                     alt="Profile preview"
-                                    className="w-16 h-16 rounded-full object-cover border"
+                                    className=" w-16 h-16 rounded-full object-cover border"
                                     onError={(e) => (e.target.style.display = 'none')}
                                 />
                             </div>
@@ -161,7 +178,7 @@ const CreatePartnerProfile = () => {
                             name="subject"
                             value={formData.subject}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             placeholder="e.g., Mathematics, Programming"
                             required
                         />
@@ -201,7 +218,7 @@ const CreatePartnerProfile = () => {
                             name="availabilityTime"
                             value={formData.availabilityTime}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             placeholder="e.g., Evening 6–9 PM"
                             required
                         />
@@ -218,7 +235,7 @@ const CreatePartnerProfile = () => {
                             name="location"
                             value={formData.location}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             placeholder="e.g., Dhaka, Bangladesh"
                             required
                         />
@@ -234,7 +251,7 @@ const CreatePartnerProfile = () => {
                             name="experienceLevel"
                             value={formData.experienceLevel}
                             onChange={handleChange}
-                            className="mt-1 block bg-base-200 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="placeholder-gray-600 mt-1 block bg-base-200 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                             required
                         >
                             <option value="Beginner">Beginner</option>
@@ -249,8 +266,8 @@ const CreatePartnerProfile = () => {
                             type="submit"
                             disabled={submitting}
                             className={`w-full py-2 px-4 rounded-md text-white font-medium ${submitting
-                                    ? 'bg-blue-400 cursor-not-allowed'
-                                    : 'bg-secondary hover:bg-blue-600'
+                                ? 'bg-blue-400 cursor-not-allowed'
+                                : 'bg-secondary hover:bg-blue-600'
                                 } transition-colors`}
                         >
                             {submitting ? 'Creating Profile...' : 'Create Profile'}
