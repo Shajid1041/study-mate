@@ -10,6 +10,7 @@ import MyConnection from "../Pages/MyConnection";
 import Profile from "../Components/Profile/Profile";
 import PrivateRoutes from "./PrivateRoutes";
 import PageNotFound from "../Components/PageNotFound/PageNotFound";
+import axios from "axios";
 
 
 
@@ -42,16 +43,26 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/find-partners/:id',
-                loader: ({ params }) => fetch(`http://localhost:3000/partners/${params.id}`),
-                element: <PrivateRoutes>
-                    <PartnerDetails></PartnerDetails>
-                </PrivateRoutes>
+                loader: async ({ params }) => {
+                    try {
+                        const res = await axios.get(`https://srudy-mate-server.vercel.app/partners/${params.id}`);
+                        return res.data;
+                    } catch (error) {
+                        console.error(error);
+                        throw new Response("Failed to load partner data", { status: 500 });
+                    }
+                },
+                element: (
+                    <PrivateRoutes>
+                        <PartnerDetails />
+                    </PrivateRoutes>
+                )
             },
             {
                 path: '/create-partner-profile',
                 element: <PrivateRoutes>
                     <CreatePartnerProfile></CreatePartnerProfile>
-                    </PrivateRoutes>
+                </PrivateRoutes>
             },
             {
                 path: 'my-connection',

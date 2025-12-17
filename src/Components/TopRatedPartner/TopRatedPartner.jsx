@@ -5,18 +5,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import StudyPartnerCard from '../StudyPartnercard/StudyPartnerCard';
+import axios from 'axios';
 
 export default function TopRatedPartner() {
+
     const [TopRatedPartners, setTopRatedPartners] = useState([])
     useEffect(() => {
-        fetch('http://localhost:3000/top-rated-partners')
-            .then(res => res.json())
-            .then(data => {
-                setTopRatedPartners(data);
+        axios
+            .get('https://srudy-mate-server.vercel.app/top-rated-partners')
+            .then(res => {
+                setTopRatedPartners(res.data);
             })
+            .catch(error => {
+                console.error("Error fetching top rated partners:", error);
+            });
     }, []);
 
-    
+
+
 
     return (
         <div className="w-full py-16 px-4 md:px-10 lg:px-20 text-black">

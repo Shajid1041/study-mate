@@ -3,37 +3,61 @@ import { useLoaderData } from "react-router";
 import Swal from 'sweetalert2';
 import { AuthContext } from "../../Context/AuthContext";
 import NotFounded from "../NotFounded/NotFounded";
+import axios from "axios";
 
 const PartnerDetails = () => {
     const partner = useLoaderData();
-    const {user} = use(AuthContext)
+    // console.log(partner)
+    const { user } = use(AuthContext)
     const email = user.email
     const [connections, setConnection] = useState([])
-    if(!partner._id){
+    if (!partner._id) {
         return (
             <NotFounded></NotFounded>
         );
     }
     const sendRequest = () => {
-        
+
         const newConnection = {
-            email : email,
-            partner : partner._id
+            email: email,
+            partner: partner._id
 
         }
-        fetch('http://localhost:3000/connection', {
-            method: 'POST',
+        axios.post('https://srudy-mate-server.vercel.app/connection', newConnection, {
             headers: {
                 'content-type': 'application/json'
-            },
-            body: JSON.stringify(newConnection)
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                // console.log('after placing Bid : ' ,data)
+            .then(res => {
+
+                const data = res.data;
+                //console.log('after placing Bid : ' ,data)
+                if (data.error === "You already connected ") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: data.error,
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                }
+                const newCount = partner.patnerCount + 1
+
+                const updateCount = {
+                    patnerCount: newCount
+                }
                 if (data.insertedId) {
-                    
-                    
+                    axios.patch(`https://srudy-mate-server.vercel.app/partners/${partner._id}`, updateCount, {
+                        headers: {
+                            "content-type": "application/json",
+                        }
+                    })
+                        .then(res => {
+                            if (res.data.modifiedCount > 0) {
+                                // console.log("Partner count updated");
+                            }
+                        })
+                        .catch(error => console.error(error));
+
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
@@ -42,13 +66,13 @@ const PartnerDetails = () => {
                         timer: 1500
                     });
                     newConnection._id = data.insertedId
-                    const newConnection = [...connections, newConnection]
-                    setConnection(newConnection)
+                    const updatedConnections = [...connections, newConnection]
+                    setConnection(updatedConnections)
                 }
             })
 
-        
-        
+
+
     }
 
 

@@ -7,11 +7,11 @@ const Navber = ({ theme, toggleTheme }) => {
     const { user, signOutUser, loader } = use(AuthContext)
 
     
-    console.log(user)
+    // console.log(user)
     const handleSignOut = () => {
         signOutUser()
     }
-    console.log(user)
+    // console.log(user)
 
     const links = (
         <>

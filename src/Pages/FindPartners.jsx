@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Loader from '../Components/Loader/Loader';
+import axios from 'axios';
 
 const FindPartners = () => {
     const [partners, setPartners] = useState([]);
@@ -17,20 +18,17 @@ const FindPartners = () => {
     useEffect(() => {
         const fetchPartners = async () => {
             try {
-                const res = await fetch('http://localhost:3000/partners/');
-                if (!res.ok) throw new Error('Failed to fetch partners');
-                const data = await res.json();
-                setPartners(data);
-                setFilteredPartners(data);
+                const res = await axios.get('https://srudy-mate-server.vercel.app/partners/');
+                setPartners(res.data);
+                setFilteredPartners(res.data);
             } catch (err) {
-                setError(err.message);
+                setError(err.response?.data?.error || err.message);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchPartners();
-        
     }, []);
 
     // Apply filtering & sorting
@@ -63,7 +61,7 @@ const FindPartners = () => {
         );
     }
 
-    
+
 
     return (
         <div className="min-h-screen bg-base-200 py-8 px-4 sm:px-6 lg:px-8">
@@ -117,16 +115,16 @@ const FindPartners = () => {
                             >
                                 <div className="p-5 text-center space-y-2">
                                     <img
-                                        src={partner.profileimage }
+                                        src={partner.profileimage}
                                         alt={partner.name}
                                         className="w-24 h-24 rounded-full object-cover mx-auto border-2 border-gray-200"
-                                        
+
                                     />
                                     <h3 className="text-xl font-semibold text-gray-800 mt-3">{partner.name}</h3>
                                     <p className="text-gray-600 mt-1"><span className="font-medium">Subject:</span> {partner.subject}</p>
                                     <p className="text-gray-600"><span className="font-medium">Study Mode:</span> {partner.studyMode}</p>
                                     <p className="text-gray-600"><span className="font-medium">Experience:</span> {partner.experienceLevel}</p>
-                                    
+
                                     <Link to={`/find-partners/${partner._id}`} className="btn text-white bg-secondary px-8">View Profile</Link>
                                 </div>
                             </div>

@@ -21,7 +21,13 @@ const Login = () => {
         event.preventDefault();
         googleAccess()
             .then(() => {
-                // sweetalert2
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Login successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                }); 
                 navigate(location.state || '/')
             })
             .catch(error => setError(error.message))

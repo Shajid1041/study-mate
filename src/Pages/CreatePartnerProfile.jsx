@@ -4,9 +4,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const CreatePartnerProfile = () => {
-    const { user, loader : authLoading } = useContext(AuthContext);
+    const { user, loader: authLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [submitting, setSubmitting] = useState(false);
@@ -48,47 +49,49 @@ const CreatePartnerProfile = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(profileData),
-            });
+            const response = await axios.post(
+                'https://srudy-mate-server.vercel.app/api/profile',
+                profileData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
 
-            const result = await response.json();
+            const result = response.data;
 
-            if (response.ok) {
+            if (result.success) {
                 Swal.fire({
                     position: "top-center",
                     icon: "success",
-                    title: "Your Registration has been complete",
+                    title: result.message || "Your Registration has been completed",
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate('/');
 
+                navigate('/');
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: result.error || 'Failed to create profile. You may already have one.',
+                    text: result.error || "Failed to create profile. You may already have one.",
                     footer: '<a href="#">Why do I have this issue?</a>'
                 });
-                
             }
+
         } catch (err) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: '❌ Network error: ' + err.message,
+                text: err.response?.data?.error || 'Network error: ' + err.message,
                 footer: '<a href="#">Why do I have this issue?</a>'
             });
-            
         } finally {
             setSubmitting(false);
         }
     };
+
 
     // Show loading
     if (authLoading) {
@@ -267,7 +270,7 @@ const CreatePartnerProfile = () => {
                             disabled={submitting}
                             className={`w-full py-2 px-4 rounded-md text-white font-medium ${submitting
                                 ? 'bg-blue-400 cursor-not-allowed'
-                                : 'bg-secondary hover:bg-blue-600'
+                                : 'bg-secondary'
                                 } transition-colors`}
                         >
                             {submitting ? 'Creating Profile...' : 'Create Profile'}
