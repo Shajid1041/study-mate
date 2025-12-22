@@ -2,8 +2,8 @@
 
 StudyMate is a MERN Stack based web application that helps students find and connect with suitable study partners for collaborative learning.
 
-🔗 **Live Site:** https://your-client-live-link.com
-🔗 **Live Server:** https://your-client-live-link.com
+🔗 **Live Site:** https://study-mate-79f95.web.app/
+🔗 **Live Server:** https://srudy-mate-server.vercel.app/
 
 ---
 
