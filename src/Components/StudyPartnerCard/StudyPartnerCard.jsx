@@ -5,7 +5,7 @@ const StudyPartnerCard = ({ partner }) => {
     
 
     return (
-        <div className=" card bg-base-200 w-70  shadow-md p-1 rounded-2xl border-primary">
+        <div className=" card bg-base-200 w-full md:w-70  shadow-md p-1 rounded-2xl border-primary ">
             <figure className="px-1 pt-1">
 
                 <img

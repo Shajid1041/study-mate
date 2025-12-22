@@ -11,6 +11,7 @@ const PartnerDetails = () => {
     const { user } = use(AuthContext)
     const email = user.email
     const [connections, setConnection] = useState([])
+    const [connectionCount, setConnectionCount] = useState(partner.patnerCount)
     if (!partner._id) {
         return (
             <NotFounded></NotFounded>
@@ -54,6 +55,7 @@ const PartnerDetails = () => {
                         .then(res => {
                             if (res.data.modifiedCount > 0) {
                                 // console.log("Partner count updated");
+                                setConnectionCount(parseInt(partner.patnerCount + 1))
                             }
                         })
                         .catch(error => console.error(error));
@@ -118,7 +120,7 @@ const PartnerDetails = () => {
                     </p>
 
                     <p className="text-gray-600">
-                        <span className="font-semibold">Partner Count:</span> {partner.patnerCount}
+                        <span className="font-semibold">Partner Count:</span> {connectionCount}
                     </p>
 
                     {/* Send Request Button */}

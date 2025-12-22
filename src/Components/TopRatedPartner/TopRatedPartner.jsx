@@ -53,7 +53,7 @@ export default function TopRatedPartner() {
                         clickable: true,
                     }}
                     modules={[Autoplay, Pagination]}
-                    className="mySwiper h-[420px]  text-black mb-15"
+                    className="mySwiper h-[450px]  text-black mb-15"
                     breakpoints={{
                         0: {
                             slidesPerView: 1,
@@ -73,7 +73,7 @@ export default function TopRatedPartner() {
                         <SwiperSlide
 
 
-                            className="max-w-[350px] md:max-w-[450px] m-5 flex justify-center items-center"
+                            className="max-w-[350px] md:max-w-[450px] my-5 mx-7 flex justify-center items-center"
                         >
                             <StudyPartnerCard partner={partner} />
                         </SwiperSlide>
