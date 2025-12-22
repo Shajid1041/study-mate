@@ -18,4 +18,3 @@ StudyMate is a MERN Stack based web application that helps students find and con
 
 ---
 
-© 2025 StudyMate. All rights reserved.
